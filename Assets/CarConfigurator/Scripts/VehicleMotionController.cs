@@ -1,0 +1,96 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace CarShowroom
+{
+    public enum MotionType { Rotate, Slide }
+
+    [Serializable]
+    public class MovingPart
+    {
+        public string id; // front_left_door, rear_right_door, bonnet, boot, left_mirror, ...
+        public Transform pivot;
+        public MotionType motionType;
+        public Vector3 openEulerOffset;
+        public Vector3 openLocalOffset;
+        public float duration = 0.8f;
+        public bool exterior = true;
+        public AudioClip openSound;
+        public AudioClip closeSound;
+        [NonSerialized] public bool isOpen;
+        [NonSerialized] public Vector3 closedPosition;
+        [NonSerialized] public Quaternion closedRotation;
+        [NonSerialized] public Coroutine running;
+    }
+
+    public class VehicleMotionController : MonoBehaviour
+    {
+        [SerializeField] private ExperienceModeManager mode;
+        [SerializeField] private AudioSource effectsSource;
+        [SerializeField] private List<MovingPart> movingParts = new List<MovingPart>();
+        public void BindMode(ExperienceModeManager value) => mode = value;
+
+        private void Awake()
+        {
+            foreach (MovingPart part in movingParts)
+            {
+                if (part == null || !part.pivot) continue;
+                part.closedPosition = part.pivot.localPosition;
+                part.closedRotation = part.pivot.localRotation;
+                part.isOpen = false;
+            }
+        }
+
+        public bool SetOpen(string id, bool open)
+        {
+            MovingPart part = movingParts.Find(p => p != null && string.Equals(p.id, id, StringComparison.OrdinalIgnoreCase));
+            if (part == null || !part.pivot) return false;
+            if (part.running != null) StopCoroutine(part.running);
+            part.running = StartCoroutine(Animate(part, open));
+            part.isOpen = open;
+            if (effectsSource && (open ? part.openSound : part.closeSound))
+                effectsSource.PlayOneShot(open ? part.openSound : part.closeSound);
+            return true;
+        }
+
+        public void SetAllDoors(bool open)
+        {
+            SetOpen("front_left_door", open);
+            SetOpen("front_right_door", open);
+            SetOpen("rear_left_door", open);
+            SetOpen("rear_right_door", open);
+        }
+
+        public void FoldBothMirrors(bool folded)
+        {
+            SetOpen("left_mirror", folded);
+            SetOpen("right_mirror", folded);
+        }
+
+        private IEnumerator Animate(MovingPart part, bool open)
+        {
+            Vector3 fromPosition = part.pivot.localPosition;
+            Quaternion fromRotation = part.pivot.localRotation;
+            Vector3 toPosition = part.closedPosition + (open ? part.openLocalOffset : Vector3.zero);
+            Quaternion toRotation = part.closedRotation * Quaternion.Euler(open ? part.openEulerOffset : Vector3.zero);
+            float elapsed = 0f;
+            float duration = Mathf.Max(0.01f, part.duration);
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                t = t * t * (3f - 2f * t);
+                if (part.motionType == MotionType.Slide)
+                    part.pivot.localPosition = Vector3.Lerp(fromPosition, toPosition, t);
+                else
+                    part.pivot.localRotation = Quaternion.Slerp(fromRotation, toRotation, t);
+                yield return null;
+            }
+            if (part.motionType == MotionType.Slide) part.pivot.localPosition = toPosition;
+            else part.pivot.localRotation = toRotation;
+            part.running = null;
+        }
+    }
+}
