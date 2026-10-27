@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 2719f2346d4a5447ca140892202aefff
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SF Mono
+  fontNames:
+  - SF Mono
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 080d7a5bd3ee542c78d06249709c43cc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

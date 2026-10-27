@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: dfa7a60192142409ba388f815721f0a7
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: New York Small
+  fontNames:
+  - New York Small
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 41bc775065c3d4b0ab180203655219c4, type: 3}
+  - {fileID: 12800000, guid: 56afe497ba4444c8daf58f34bbd51e96, type: 3}
+  - {fileID: 12800000, guid: 855493397c06845ad97e66aa39c19b5f, type: 3}
+  - {fileID: 12800000, guid: 157c6b39a26a14fa39ca2e119440c92e, type: 3}
+  - {fileID: 12800000, guid: 710818b9640bf4c3c8f7b6c83eb9b98a, type: 3}
+  - {fileID: 12800000, guid: 9a3af14a362334c11a7cdb515d092725, type: 3}
+  - {fileID: 12800000, guid: a1f0e3ba3ca8a441db791c06320595c4, type: 3}
+  - {fileID: 12800000, guid: 84ea8bcb5e0c7446ea11d69074d54cf6, type: 3}
+  - {fileID: 12800000, guid: 721b3b7c79ef24574b14beb963c34b33, type: 3}
+  - {fileID: 12800000, guid: 3084d2bcf4be145d9bc09d7ba12679bc, type: 3}
+  - {fileID: 12800000, guid: 32af972e19fa541d491dddbc48348ba4, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

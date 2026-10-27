@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 7570c431447944f6a8e191f6997bc4c8
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: New York Extra Large
+  fontNames:
+  - New York Extra Large
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 2db135f1764ee44cd84be75de6d2c6a5, type: 3}
+  - {fileID: 12800000, guid: 66f41ef5698ff4b77a69ba53310094d0, type: 3}
+  - {fileID: 12800000, guid: 63d9e91c5fcf54d618099eee381345b1, type: 3}
+  - {fileID: 12800000, guid: 065d41bc5c8a6422b86cdeb00b861586, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

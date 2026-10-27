@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: c52e945337b8842e3b0577ba13453471
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: New York Large
+  fontNames:
+  - New York Large
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9bb0a96140e2745e1a4a6e28651e060f, type: 3}
+  - {fileID: 12800000, guid: 5727ec73cee494c0bb4ac413b3c5ee8a, type: 3}
+  - {fileID: 12800000, guid: b9dd3e84a82624d66a9b2ea692187c02, type: 3}
+  - {fileID: 12800000, guid: 5ff37e45138354e679a981e61b7faedc, type: 3}
+  - {fileID: 12800000, guid: 9ba67ec7893e749a48e8ab69ac323f38, type: 3}
+  - {fileID: 12800000, guid: ac21b1cd7104f438cb8a15712e15de4a, type: 3}
+  - {fileID: 12800000, guid: 8b95e7dd216e9426293744035abbde0e, type: 3}
+  - {fileID: 12800000, guid: 7440864e2b7d34b239d752e0eca89756, type: 3}
+  - {fileID: 12800000, guid: 19775fee92b984695a404a5f7a366d6b, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

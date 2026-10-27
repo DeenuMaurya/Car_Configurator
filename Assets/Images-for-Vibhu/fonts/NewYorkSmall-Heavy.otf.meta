@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 3084d2bcf4be145d9bc09d7ba12679bc
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: New York Small
+  fontNames:
+  - New York Small
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 157c6b39a26a14fa39ca2e119440c92e, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

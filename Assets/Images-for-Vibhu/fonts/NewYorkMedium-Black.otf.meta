@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: b3544d32e84a7494ab27e152031f05f4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: New York Medium
+  fontNames:
+  - New York Medium
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6af776e1f3dd44caa952aa9ca5301a43, type: 3}
+  - {fileID: 12800000, guid: 6ad018f3683b54683aadac6d8a37c297, type: 3}
+  - {fileID: 12800000, guid: 81b3f6342f8bb495795dcb37e1af3dd8, type: 3}
+  - {fileID: 12800000, guid: a0e2e8d45762e4c1baa4c157c78e9010, type: 3}
+  - {fileID: 12800000, guid: 6f4c13f44036b4ebe99740734943a7b0, type: 3}
+  - {fileID: 12800000, guid: 936a0b07924054fe48b824b37c742d48, type: 3}
+  - {fileID: 12800000, guid: 1c87df6bd86394ac396a0284ea94407f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
