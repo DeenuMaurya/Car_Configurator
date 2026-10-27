@@ -49,6 +49,13 @@ namespace CarShowroom
         public void SetSeatColor(Color color) { Current.seatColor = color; Apply(); }
         public void SetUpholstery(string materialName) { Current.upholstery = materialName; Apply(); }
         public void SetPaintFinish(PaintFinish finish) { Current.paintFinish = finish; Apply(); }
+        public void ResetToDefaults()
+        {
+            Current = JsonUtility.FromJson<CarConfiguration>(JsonUtility.ToJson(initialConfiguration));
+            if (Current.enabledPartIds == null) Current.enabledPartIds = new List<string>();
+            Apply();
+            Save();
+        }
         public bool SetWheelStyle(string id) => ChooseStyle(wheels, id, s => Current.wheelStyle = s);
         public bool SetGrilleStyle(string id) => ChooseStyle(grilles, id, s => Current.grilleStyle = s);
         public bool SetDashboardTrim(string id) => ChooseStyle(dashboardTrims, id, s => Current.dashboardTrim = s);

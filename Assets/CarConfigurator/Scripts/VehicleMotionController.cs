@@ -45,6 +45,9 @@ namespace CarShowroom
 
         public bool SetOpen(string id, bool open)
         {
+            // Only doors and separate window panes are supported. Bonnet/boot/mirror-fold
+            // features were removed from this project scope.
+            if (!IsSupportedPart(id)) return false;
             MovingPart part = movingParts.Find(p => p != null && string.Equals(p.id, id, StringComparison.OrdinalIgnoreCase));
             if (part == null || !part.pivot) return false;
             if (part.running != null) StopCoroutine(part.running);
@@ -63,10 +66,16 @@ namespace CarShowroom
             SetOpen("rear_right_door", open);
         }
 
-        public void FoldBothMirrors(bool folded)
+        private static bool IsSupportedPart(string id)
         {
-            SetOpen("left_mirror", folded);
-            SetOpen("right_mirror", folded);
+            switch ((id ?? "").ToLowerInvariant())
+            {
+                case "front_left_door": case "front_right_door":
+                case "rear_left_door": case "rear_right_door":
+                case "front_left_window": case "front_right_window":
+                case "rear_left_window": case "rear_right_window": return true;
+                default: return false;
+            }
         }
 
         private IEnumerator Animate(MovingPart part, bool open)

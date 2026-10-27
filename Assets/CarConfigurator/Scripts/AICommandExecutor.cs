@@ -110,9 +110,6 @@ namespace CarShowroom
                 case "set_all_doors":
                     if (!motions || !TryOnOff(value, out bool allDoors)) return false;
                     motions.SetAllDoors(allDoors); return true;
-                case "fold_mirrors":
-                    if (!motions || !TryOnOff(value, out bool folded)) return false;
-                    motions.FoldBothMirrors(folded); return true;
                 case "set_lights":
                     if (!lighting || !TryOnOff(value, out bool lit)) return false;
                     switch ((command.target ?? "").ToLowerInvariant())

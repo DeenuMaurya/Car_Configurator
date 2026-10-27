@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 142730625}
   - component: {fileID: 142730624}
   - component: {fileID: 142730623}
+  - component: {fileID: 142730630}
+  - component: {fileID: 142730631}
   m_Layer: 0
   m_Name: CarConfiguratorSystem
   m_TagString: Untagged
@@ -329,6 +331,39 @@ MonoBehaviour:
   mattePaintPrice: 0
   leatherPrice: 0
   premiumLeatherPrice: 0
+--- !u!114 &142730630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142730622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab2e3bf1b254b6abaf610ab513ae431, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CarShowroom.CarConfiguratorUIController
+  config: {fileID: 142730628}
+  motions: {fileID: 142730627}
+  cabin: {fileID: 142730625}
+  appearance: {fileID: 142730631}
+  uiClickSource: {fileID: 0}
+  uiClick: {fileID: 0}
+--- !u!114 &142730631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142730622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c50e51dd6544e34a4fb74044199c269, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::CarShowroom.CarInteriorAppearanceController
+  configurator: {fileID: 142730628}
+  cabinAmbientLights: []
+  separatelyModeledRearSeats: []
 --- !u!4 &142730629
 Transform:
   m_ObjectHideFlags: 0

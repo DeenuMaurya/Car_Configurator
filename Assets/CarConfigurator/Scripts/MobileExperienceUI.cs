@@ -30,9 +30,6 @@ namespace CarShowroom
         }
         public void SetDoor(string id, bool open) { if (motions) motions.SetOpen(id, open); }
         public void SetAllDoors(bool open) { if (motions) motions.SetAllDoors(open); }
-        public void FoldMirrors(bool folded) { if (motions) motions.FoldBothMirrors(folded); }
-        public void SetBonnet(bool open) { if (motions) motions.SetOpen("bonnet", open); }
-        public void SetBoot(bool open) { if (motions) motions.SetOpen("boot", open); }
         public void SetHeadlights(bool enabled) { if (lights) lights.SetLowBeams(enabled); }
         public void SetHighBeams(bool enabled) { if (lights) lights.SetHighBeams(enabled); }
         public void SetFogLights(bool enabled) { if (lights) lights.SetFogLights(enabled); }

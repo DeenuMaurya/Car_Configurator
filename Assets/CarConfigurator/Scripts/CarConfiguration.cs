@@ -15,6 +15,11 @@ namespace CarShowroom
         public Color bodyColor = Color.white;
         public PaintFinish paintFinish = PaintFinish.Glossy;
         public Color seatColor = new Color(0.20f, 0.18f, 0.16f);
+        public Color rearSeatColor = new Color(0.20f, 0.18f, 0.16f);
+        public Color dashboardColor = new Color(0.12f, 0.12f, 0.12f);
+        public Color doorTrimColor = new Color(0.12f, 0.12f, 0.12f);
+        public Color ambientColor = Color.white;
+        public bool ambientEnabled;
         public string upholstery = "Fabric";
         public string wheelStyle = "standard";
         public string grilleStyle = "standard";

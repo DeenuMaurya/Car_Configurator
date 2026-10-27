@@ -87,11 +87,18 @@ namespace CarShowroom.EditorTools
             CarCabinControls cabin = GetOrAdd<CarCabinControls>(system);
             AICommandExecutor ai = GetOrAdd<AICommandExecutor>(system);
             ShowroomFeatureController features = GetOrAdd<ShowroomFeatureController>(system);
+            CarInteriorAppearanceController appearance = GetOrAdd<CarInteriorAppearanceController>(system);
+            CarConfiguratorUIController ui = GetOrAdd<CarConfiguratorUIController>(system);
             SetReference(ai, "configurator", configurator);
             SetReference(ai, "motions", motions);
             SetReference(ai, "lighting", lights);
             SetReference(ai, "cabin", cabin);
             SetReference(features, "cabin", cabin);
+            SetReference(appearance, "configurator", configurator);
+            SetReference(ui, "config", configurator);
+            SetReference(ui, "motions", motions);
+            SetReference(ui, "cabin", cabin);
+            SetReference(ui, "appearance", appearance);
 
             // The prefab has specific Car01_Body_LOD0..3 objects. These renderers are suggestions:
             // if a renderer combines paint and non-paint materials, manually narrow its material slots.
@@ -112,8 +119,8 @@ namespace CarShowroom.EditorTools
             AddMotionIfFound(motions, indexed, "front_right_door", "Car01_Door_Front_Right", warnings);
             AddMotionIfFound(motions, indexed, "rear_left_door", "Car01_Door_Back_Left", warnings);
             AddMotionIfFound(motions, indexed, "rear_right_door", "Car01_Door_Back_Right", warnings);
-            foreach (string missing in new[] { "bonnet", "boot", "left_mirror", "right_mirror",
-                         "front_left_window", "front_right_window", "rear_left_window", "rear_right_window" })
+            foreach (string missing in new[] { "front_left_window", "front_right_window",
+                         "rear_left_window", "rear_right_window" })
                 warnings.Add("Needs separate pivot/mesh mapping: " + missing);
 
             SetReferenceArray(lights, "leftIndicators", FindGO(indexed, "Car01_TurnLights_Left"));
