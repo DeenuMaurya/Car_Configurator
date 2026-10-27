@@ -349,6 +349,52 @@ MonoBehaviour:
   appearance: {fileID: 142730631}
   uiClickSource: {fileID: 0}
   uiClick: {fileID: 0}
+  menuSpritePairs:
+  - path: ExteriorMenu/Colour
+    offSprite: {fileID: 21300000, guid: 27e9149e3b126414aadaa1eb51459f05, type: 3}
+    onSprite: {fileID: 21300000, guid: 41f2b205a1a2a4c6d8dd076645bbcbf3, type: 3}
+  - path: ExteriorMenu/Alloy
+    offSprite: {fileID: 21300000, guid: 4a2acd089902e4af5925a24341e434ac, type: 3}
+    onSprite: {fileID: 21300000, guid: 5a852fb79efc243baa3d87a760b599e6, type: 3}
+  - path: ExteriorMenu/Chrome
+    offSprite: {fileID: 21300000, guid: d5e2282b579f64bc4a9836612f394ad0, type: 3}
+    onSprite: {fileID: 21300000, guid: 0fb626fd4b0184758927c43db069f256, type: 3}
+  - path: ExteriorMenu/Cladding
+    offSprite: {fileID: 21300000, guid: c20d1874602434fa5b218eb459b5f84d, type: 3}
+    onSprite: {fileID: 21300000, guid: 281584fa900314979a6a5f449ba6834e, type: 3}
+  - path: ExteriorMenu/Door-Visor
+    offSprite: {fileID: 21300000, guid: 562086acd641640639ff36db7eaecb90, type: 3}
+    onSprite: {fileID: 21300000, guid: c5ea799b7f2db4d4aa4efb2d67284d60, type: 3}
+  - path: ExteriorMenu/Roof-Rail
+    offSprite: {fileID: 21300000, guid: 9e852c5f386c24ac4aaebb29da9c589a, type: 3}
+    onSprite: {fileID: 21300000, guid: 012291b8d88ad494997e0c45eadfdbad, type: 3}
+  - path: Interiormenu/DashBoard
+    offSprite: {fileID: 21300000, guid: 444df5b918a5f4553bb62972fc91c049, type: 3}
+    onSprite: {fileID: 21300000, guid: d8042de7078104bccb60b69bc573c5f5, type: 3}
+  - path: Interiormenu/FrontSeat
+    offSprite: {fileID: 21300000, guid: 8d6feede30d88492caeea73452ad10eb, type: 3}
+    onSprite: {fileID: 21300000, guid: a1ecbd738601145a18ae9814bb6019f8, type: 3}
+  - path: Interiormenu/BackSeat
+    offSprite: {fileID: 21300000, guid: 0e3baa95eea544125a4eaeea3aa2b7d8, type: 3}
+    onSprite: {fileID: 21300000, guid: 7e8e0993d14bd43ef9e82b02e6a86fc5, type: 3}
+  - path: Interiormenu/SeatCover
+    offSprite: {fileID: 21300000, guid: f43fe9f667e8143ff9a67ec64fc5ab2a, type: 3}
+    onSprite: {fileID: 21300000, guid: d3a27678cfa244f8ba0a291b25cf12fb, type: 3}
+  - path: Interiormenu/Door-Colour
+    offSprite: {fileID: 21300000, guid: e8a1e371ab44741e5af05a3fc84531f3, type: 3}
+    onSprite: {fileID: 21300000, guid: 8c46b7f866a9347fb91dd47141bffc11, type: 3}
+  - path: Interiormenu/CabinHeight
+    offSprite: {fileID: 21300000, guid: bc77dd43bb0654e81a1ee9d0d7281a11, type: 3}
+    onSprite: {fileID: 21300000, guid: 40c00a911339c4cba95daf5ee66e9bef, type: 3}
+  - path: Interiormenu/AmbientLight
+    offSprite: {fileID: 21300000, guid: e1461438913a146b287c025e3efb9c9e, type: 3}
+    onSprite: {fileID: 21300000, guid: 7f19268e1900648b4948b6ef971d9ae3, type: 3}
+  - path: Interiormenu/Music
+    offSprite: {fileID: 21300000, guid: 185e64e331c4643fbbeca39d05c8816c, type: 3}
+    onSprite: {fileID: 21300000, guid: efff6a72d627a4889a193f2ef47eedb2, type: 3}
+  - path: SideMenu/MusicOnOff
+    offSprite: {fileID: 21300000, guid: 753b3e117c8994a7296c72cf53056efb, type: 3}
+    onSprite: {fileID: 21300000, guid: ded72a6fc02da490eb943dc05707ee63, type: 3}
 --- !u!114 &142730631
 MonoBehaviour:
   m_ObjectHideFlags: 0
