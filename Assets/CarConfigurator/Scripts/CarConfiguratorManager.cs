@@ -63,8 +63,8 @@ namespace CarShowroom
 
         private bool ChooseStyle(List<StyleOption> options, string id, Action<string> update)
         {
-            StyleOption option = options.Find(o => string.Equals(o.id, id, StringComparison.OrdinalIgnoreCase));
-            if (option == null || Current.variant < option.minimumVariant) return false;
+            StyleOption option = options.Find(o => o != null && string.Equals(o.id, id, StringComparison.OrdinalIgnoreCase));
+            if (option == null || !option.root || Current.variant < option.minimumVariant) return false;
             update(option.id);
             Apply();
             Save();
@@ -74,7 +74,7 @@ namespace CarShowroom
         public bool SetPart(string id, bool enabled)
         {
             PartEntry entry = FindPart(id);
-            if (entry == null || !entry.isOptional || Current.variant < entry.minimumVariant) return false;
+            if (entry == null || !entry.root || !entry.isOptional || Current.variant < entry.minimumVariant) return false;
             if (enabled && !Current.enabledPartIds.Contains(entry.id)) Current.enabledPartIds.Add(entry.id);
             if (!enabled) Current.enabledPartIds.Remove(entry.id);
             Apply();

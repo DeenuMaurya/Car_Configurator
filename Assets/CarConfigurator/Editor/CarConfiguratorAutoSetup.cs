@@ -89,6 +89,7 @@ namespace CarShowroom.EditorTools
             ShowroomFeatureController features = GetOrAdd<ShowroomFeatureController>(system);
             CarInteriorAppearanceController appearance = GetOrAdd<CarInteriorAppearanceController>(system);
             CarConfiguratorUIController ui = GetOrAdd<CarConfiguratorUIController>(system);
+            CarConfiguratorFeatureActions actions = GetOrAdd<CarConfiguratorFeatureActions>(system);
             SetReference(ai, "configurator", configurator);
             SetReference(ai, "motions", motions);
             SetReference(ai, "lighting", lights);
@@ -99,6 +100,13 @@ namespace CarShowroom.EditorTools
             SetReference(ui, "motions", motions);
             SetReference(ui, "cabin", cabin);
             SetReference(ui, "appearance", appearance);
+            SetReference(actions, "configurator", configurator);
+            SetReference(actions, "motions", motions);
+            SetReference(actions, "lights", lights);
+            SetReference(actions, "cabin", cabin);
+            SetReference(actions, "features", features);
+            SetReference(actions, "appearance", appearance);
+            SetReference(ai, "featureActions", actions);
 
             // The prefab has specific Car01_Body_LOD0..3 objects. These renderers are suggestions:
             // if a renderer combines paint and non-paint materials, manually narrow its material slots.

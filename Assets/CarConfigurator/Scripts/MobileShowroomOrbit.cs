@@ -15,14 +15,21 @@ namespace CarShowroom
         [SerializeField] private float minPitch = -15f;
         [SerializeField] private float maxPitch = 75f;
         [SerializeField] private bool allowInput = true;
+        [SerializeField] private float automaticOrbitDegreesPerSecond = 12f;
         private float yaw;
         private float pitch = 15f;
+        public bool IsAutoRotating { get; private set; }
 
         public void SetOrbitInput(bool allowed) => allowInput = allowed;
+        public void RotateBy(float degrees) => yaw += degrees;
+        public void ZoomBy(float delta) => distance = Mathf.Clamp(distance + delta, minDistance, maxDistance);
+        public void SetAutoRotate(bool enabled) => IsAutoRotating = enabled;
+        public void ToggleAutoRotate() => SetAutoRotate(!IsAutoRotating);
 
         private void LateUpdate()
         {
             if (!target || !allowInput) return;
+            if (IsAutoRotating) yaw += automaticOrbitDegreesPerSecond * Time.deltaTime;
             if (Input.touchCount == 1)
             {
                 Touch touch = Input.GetTouch(0);

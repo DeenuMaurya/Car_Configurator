@@ -9,8 +9,8 @@ namespace CarShowroom
     public class ExperienceModeManager : MonoBehaviour
     {
         [SerializeField] private ExperienceMode mode = ExperienceMode.Showroom;
-        [SerializeField] private string showroomSceneName = "Mobile_Showroom";
-        [SerializeField] private string arSceneName = "Mobile_AR";
+        [SerializeField] private string showroomSceneName = "3D Car Configurator";
+        [SerializeField] private string arSceneName = "AR_Scene";
 
         public ExperienceMode Mode => mode;
         // AR supports remote cabin controls but never teleports/moves the viewer into a seat.

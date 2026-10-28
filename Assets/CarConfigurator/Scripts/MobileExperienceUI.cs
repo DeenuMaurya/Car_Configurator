@@ -12,6 +12,7 @@ namespace CarShowroom
         [SerializeField] private VehicleMotionController motions;
         [SerializeField] private VehicleLightsAndSounds lights;
         [SerializeField] private ShowroomFeatureController cabinFeatures;
+        [SerializeField] private CarConfiguratorFeatureActions featureActions;
 
         public void BindCar(CarConfiguratorManager car)
         {
@@ -26,6 +27,8 @@ namespace CarShowroom
                 if (carFeatures) cabinFeatures = carFeatures;
                 if (motions) motions.BindMode(mode);
                 if (cabinFeatures) { cabinFeatures.BindMode(mode); cabinFeatures.BindCabin(cabin); }
+                if (!featureActions) featureActions = GetComponent<CarConfiguratorFeatureActions>();
+                if (featureActions) featureActions.BindCar(car);
             }
         }
         public void SetDoor(string id, bool open) { if (motions) motions.SetOpen(id, open); }
@@ -100,5 +103,8 @@ namespace CarShowroom
         {
             if (cabin) cabin.SetAC(enabled);
         }
+
+        // Use the shared hub for the full approved catalog (including AR cabin options).
+        public bool TryFeature(string action, string value) => featureActions && featureActions.ExecuteFeature(action, value);
     }
 }

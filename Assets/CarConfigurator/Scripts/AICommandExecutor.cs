@@ -20,6 +20,7 @@ namespace CarShowroom
         [SerializeField] private VehicleMotionController motions;
         [SerializeField] private VehicleLightsAndSounds lighting;
         [SerializeField] private CarShowcaseServices showcase;
+        [SerializeField] private CarConfiguratorFeatureActions featureActions;
 
         public void BindForAR(CarConfiguratorManager car, VehicleMotionController vehicleMotions,
             VehicleLightsAndSounds vehicleLighting, ExperienceModeManager currentMode)
@@ -90,17 +91,22 @@ namespace CarShowroom
                 case "exit_car":
                     if (!navigator) return false; navigator.ExitCar(); return true;
                 case "set_ac":
+                    if (featureActions) return featureActions.ExecuteFeature("set_ac", value);
                     if (!cabin || !TryOnOff(value, out bool ac)) return false;
                     cabin.SetAC(ac); return true;
                 case "set_music":
+                    if (featureActions) return featureActions.ExecuteFeature("set_music", value);
                     if (!cabin || !TryOnOff(value, out bool music)) return false;
                     cabin.SetMusic(music); return true;
                 case "set_sunroof":
+                    if (featureActions) return featureActions.ExecuteFeature("set_sunroof", value);
                     if (!cabin || !TryOnOff(value, out bool roof)) return false;
                     cabin.SetSunroof(roof); return true;
                 case "set_ambient_lights":
-                    if (!cabin || !TryOnOff(value, out bool lights)) return false;
-                    cabin.SetAmbientLights(lights); return true;
+                    if (!TryOnOff(value, out bool ambientState)) return false;
+                    if (featureActions) return featureActions.ExecuteFeature(ambientState ? "ambient_on" : "ambient_off", "");
+                    if (!cabin) return false;
+                    cabin.SetAmbientLights(ambientState); return true;
                 case "set_engine":
                     if (!cabin || !TryOnOff(value, out bool engine)) return false;
                     cabin.SetEngine(engine); return true;
@@ -128,8 +134,12 @@ namespace CarShowroom
                     if (!lighting || !TryOnOff(value, out bool locked)) return false;
                     lighting.SetLocked(locked); return true;
                 case "set_night_mode":
+                    if (featureActions) return featureActions.ExecuteFeature("set_night_mode", value);
                     if (!showcase || !TryOnOff(value, out bool night)) return false;
                     showcase.SetNightMode(night); return true;
+                case "feature":
+                    // Natural-language service can request ONLY allowlisted feature names.
+                    return featureActions && featureActions.ExecuteFeature(command.target, command.value);
                 default: return false;
             }
         }
@@ -140,20 +150,6 @@ namespace CarShowroom
             return on || value == "off" || value == "close" || value == "unfold";
         }
 
-        private static bool TryColor(string name, out Color color)
-        {
-            switch (name)
-            {
-                case "red": color = Color.red; return true;
-                case "green": color = Color.green; return true;
-                case "white": color = Color.white; return true;
-                case "black": color = Color.black; return true;
-                case "blue": color = Color.blue; return true;
-                case "silver": color = new Color(.65f, .68f, .70f); return true;
-                case "beige": color = new Color(.78f, .69f, .55f); return true;
-                case "brown": color = new Color(.28f, .14f, .07f); return true;
-                default: color = Color.white; return false;
-            }
-        }
+        private static bool TryColor(string name, out Color color) => CarConfiguratorFeatureActions.TryColor(name, out color);
     }
 }

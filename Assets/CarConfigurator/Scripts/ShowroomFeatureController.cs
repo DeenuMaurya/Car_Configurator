@@ -20,6 +20,11 @@ namespace CarShowroom
         private bool acOn;
         private float temperature = 22f;
         private int fanSpeed = 1;
+        public bool IsACOn => acOn;
+        public bool IsPremiumAudioSelected { get; private set; }
+        public bool IsDigitalClusterSelected { get; private set; }
+        public bool IsWirelessChargerSelected { get; private set; }
+        public string CurrentScreen { get; private set; } = "home";
 
         public void BindMode(ExperienceModeManager value) => mode = value;
         public void BindCabin(CarCabinControls value) => cabin = value;
@@ -28,6 +33,7 @@ namespace CarShowroom
         public void SetScreen(string screen)
         {
             if (!Allowed) return;
+            CurrentScreen = screen;
             if (infotainmentHome) infotainmentHome.SetActive(screen == "home");
             if (infotainmentAudio) infotainmentAudio.SetActive(screen == "audio");
             if (infotainmentClimate) infotainmentClimate.SetActive(screen == "climate");
@@ -36,6 +42,7 @@ namespace CarShowroom
         public void SelectPremiumAudio(bool premium)
         {
             if (!Allowed) return;
+            IsPremiumAudioSelected = premium;
             if (basicAudioSystem) basicAudioSystem.SetActive(!premium);
             if (premiumAudioSystem) premiumAudioSystem.SetActive(premium);
         }
@@ -43,12 +50,14 @@ namespace CarShowroom
         public void SetDigitalCluster(bool digital)
         {
             if (!Allowed) return;
+            IsDigitalClusterSelected = digital;
             if (analogCluster) analogCluster.SetActive(!digital);
             if (digitalCluster) digitalCluster.SetActive(digital);
         }
 
         public void SetWirelessCharger(bool installed)
         {
+            if (Allowed) IsWirelessChargerSelected = installed;
             if (Allowed && wirelessCharger) wirelessCharger.SetActive(installed);
         }
 

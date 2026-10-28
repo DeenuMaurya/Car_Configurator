@@ -26,6 +26,15 @@ namespace CarShowroom
         public string dashboardTrim = "standard";
         public string steeringStyle = "standard";
         public bool nightMode;
+        public bool premiumAudio;
+        public bool digitalInstrumentCluster;
+        public bool wirelessCharging;
+        public bool acEnabled;
+        public float acTemperature = 22f;
+        public int acFanSpeed = 1;
+        public bool musicEnabled;
+        public bool sunroofOpen;
+        public string infotainmentPage = "home";
         public List<string> enabledPartIds = new List<string>();
     }
 

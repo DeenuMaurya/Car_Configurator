@@ -19,11 +19,18 @@ namespace CarShowroom
         private bool left, right, hazard;
         private float blinkTimer;
         private bool blinkLit;
+        public bool AreLowBeamsOn { get; private set; }
+        public bool AreHighBeamsOn { get; private set; }
+        public bool AreFogLightsOn { get; private set; }
+        public bool AreBrakeLightsOn { get; private set; }
+        public bool IsHazardOn => hazard;
+        public bool IsLeftIndicatorOn => left;
+        public bool IsRightIndicatorOn => right;
 
-        public void SetLowBeams(bool on) => SetLights(lowBeams, on);
-        public void SetHighBeams(bool on) => SetLights(highBeams, on);
-        public void SetFogLights(bool on) => SetLights(fogLights, on);
-        public void SetBrakeLights(bool on) => SetObjects(brakeEmissiveMeshes, on);
+        public void SetLowBeams(bool on) { AreLowBeamsOn = on; SetLights(lowBeams, on); }
+        public void SetHighBeams(bool on) { AreHighBeamsOn = on; SetLights(highBeams, on); }
+        public void SetFogLights(bool on) { AreFogLightsOn = on; SetLights(fogLights, on); }
+        public void SetBrakeLights(bool on) { AreBrakeLightsOn = on; SetObjects(brakeEmissiveMeshes, on); }
         public void SetLeftIndicator(bool on) { left = on; if (on) { right = false; hazard = false; } RefreshIndicators(); }
         public void SetRightIndicator(bool on) { right = on; if (on) { left = false; hazard = false; } RefreshIndicators(); }
         public void SetHazard(bool on) { hazard = on; if (on) { left = false; right = false; } RefreshIndicators(); }

@@ -129,7 +129,12 @@ namespace CarShowroom
             });
             BindCanvasButton(canvas.transform, "SideMenu/MusicOnOff", ToggleMusic);
             BindCanvasButton(canvas.transform, "SideMenu/Share (1)", ShareConfiguration);
-            BindButton("360On", () => Debug.Log("[Car UI] 360 camera mode requires a configured camera orbit."));
+            BindButton("360On", () =>
+            {
+                CarConfiguratorFeatureActions actions = GetComponent<CarConfiguratorFeatureActions>();
+                if (!actions || !actions.ExecuteFeature("orbit_auto", ""))
+                    Debug.LogWarning("[Car UI] Assign MobileShowroomOrbit + CarConfiguratorFeatureActions to use 360 inspection.");
+            });
 
             isInterior = menu.Find("Interior") && menu.Find("Interior").gameObject.activeSelf;
             SetSection(isInterior);
@@ -181,6 +186,7 @@ namespace CarShowroom
 
         private void UpdateMenuSprites()
         {
+            if (config && config.Current != null) musicEnabled = config.Current.musicEnabled;
             foreach (MenuSpritePair pair in menuSpritePairs)
             {
                 if (pair == null || string.IsNullOrEmpty(pair.path)) continue;
@@ -389,7 +395,13 @@ namespace CarShowroom
 
         private void ToggleMusic()
         {
-            musicEnabled = !musicEnabled;
+            musicEnabled = config && config.Current != null ? !config.Current.musicEnabled : !musicEnabled;
+            if (config && config.Current != null)
+            {
+                config.Current.musicEnabled = musicEnabled;
+                config.Apply();
+                config.Save();
+            }
             if (cabin) cabin.SetMusic(musicEnabled);
             UpdateMenuSprites();
         }

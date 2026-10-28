@@ -1,4 +1,3 @@
-#if UNITY_AR_FOUNDATION
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +15,7 @@ namespace CarShowroom
         [SerializeField] private MobileExperienceUI mobileUI;
         [SerializeField] private ExperienceModeManager arMode;
         [SerializeField] private AICommandExecutor arExecutor;
+        [SerializeField] private CarConfiguratorFeatureActions featureActions;
         private GameObject spawnedCar;
         public event Action<GameObject> CarPlaced;
         private static readonly List<ARRaycastHit> Hits = new List<ARRaycastHit>();
@@ -38,6 +38,8 @@ namespace CarShowroom
                 {
                     configurator.Load();
                     if (mobileUI != null) mobileUI.BindCar(configurator);
+                    if (!featureActions) featureActions = FindFirstObjectByType<CarConfiguratorFeatureActions>();
+                    if (featureActions != null) featureActions.BindCar(configurator);
                     if (arExecutor != null)
                         arExecutor.BindForAR(configurator,
                             vehicleMotion,
@@ -49,4 +51,3 @@ namespace CarShowroom
         }
     }
 }
-#endif
