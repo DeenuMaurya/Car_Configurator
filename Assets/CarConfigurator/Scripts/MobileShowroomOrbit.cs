@@ -49,6 +49,19 @@ namespace CarShowroom
                     distance = Mathf.Clamp(distance - (current - previous) * pinchSpeed, minDistance, maxDistance);
                 }
             }
+            else if (Input.touchCount == 0)
+            {
+                if (Input.GetMouseButton(0) && (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()))
+                {
+                    yaw += Input.GetAxis("Mouse X") * orbitSpeed * 15f;
+                    pitch = Mathf.Clamp(pitch - Input.GetAxis("Mouse Y") * orbitSpeed * 15f, minPitch, maxPitch);
+                }
+                float scroll = Input.GetAxis("Mouse ScrollWheel");
+                if (Mathf.Abs(scroll) > 0.001f && (EventSystem.current == null || !EventSystem.current.IsPointerOverGameObject()))
+                {
+                    distance = Mathf.Clamp(distance - scroll * 2f, minDistance, maxDistance);
+                }
+            }
             Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
             transform.SetPositionAndRotation(target.position + rotation * (Vector3.back * distance), rotation);
         }

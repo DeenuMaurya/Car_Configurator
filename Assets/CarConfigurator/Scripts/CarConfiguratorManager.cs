@@ -34,10 +34,11 @@ namespace CarShowroom
 
         public CarConfiguration Current { get; private set; }
         public event Action ConfigurationChanged;
-        private readonly MaterialPropertyBlock block = new MaterialPropertyBlock();
+        private MaterialPropertyBlock block;
 
         private void Awake()
         {
+            if (block == null) block = new MaterialPropertyBlock();
             Current = JsonUtility.FromJson<CarConfiguration>(JsonUtility.ToJson(initialConfiguration));
             Apply();
         }
@@ -158,11 +159,11 @@ namespace CarShowroom
             ApplyStyles(steeringWheels, Current.steeringStyle);
             Material selectedPaint = Current.paintFinish == PaintFinish.Matte ? mattePaint :
                 Current.paintFinish == PaintFinish.Metallic ? metallicPaint : glossyPaint;
-            if (selectedPaint != null) SetMaterial(bodyRenderers, selectedPaint);
+            if (selectedPaint != null) SetMaterial(bodyRenderers, selectedPaint, true);
             Material selectedSeat = string.Equals(Current.upholstery, "PremiumLeather", StringComparison.OrdinalIgnoreCase) ? premiumLeatherMaterial :
                 string.Equals(Current.upholstery, "Leather", StringComparison.OrdinalIgnoreCase) ? leatherMaterial : fabricMaterial;
             if (selectedSeat != null) SetMaterial(upholsteryRenderers, selectedSeat);
-            ApplyColor(bodyRenderers, bodyColorProperty, Current.bodyColor);
+            ApplyColor(bodyRenderers, bodyColorProperty, Current.bodyColor, true);
             ApplyColor(seatRenderers, seatColorProperty, Current.seatColor);
             ConfigurationChanged?.Invoke();
         }
@@ -175,21 +176,58 @@ namespace CarShowroom
                         string.Equals(option.id, selected, StringComparison.OrdinalIgnoreCase));
         }
 
-        private void SetMaterial(Renderer[] renderers, Material material)
+        private void SetMaterial(Renderer[] renderers, Material material, bool isBodyPaint = false)
         {
+            if (renderers == null || material == null) return;
             foreach (var renderer in renderers)
-                if (renderer) renderer.sharedMaterial = material;
+            {
+                if (!renderer) continue;
+                Material[] mats = renderer.sharedMaterials;
+                if (mats == null || mats.Length == 0) continue;
+                bool changed = false;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    if (mats[i] == null) continue;
+                    if (!isBodyPaint || IsPaintMaterial(mats[i].name))
+                    {
+                        mats[i] = material;
+                        changed = true;
+                    }
+                }
+                if (changed) renderer.sharedMaterials = mats;
+            }
         }
 
-        private void ApplyColor(Renderer[] renderers, string property, Color color)
+        private void ApplyColor(Renderer[] renderers, string property, Color color, bool isBodyPaint = false)
         {
+            if (renderers == null) return;
+            if (block == null) block = new MaterialPropertyBlock();
             foreach (Renderer renderer in renderers)
             {
-                if (renderer == null || renderer.sharedMaterial == null || !renderer.sharedMaterial.HasProperty(property)) continue;
-                renderer.GetPropertyBlock(block);
-                block.SetColor(property, color);
-                renderer.SetPropertyBlock(block);
+                if (renderer == null) continue;
+                Material[] mats = renderer.sharedMaterials;
+                if (mats == null || mats.Length == 0) continue;
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    Material mat = mats[i];
+                    if (mat == null) continue;
+                    if (isBodyPaint && !IsPaintMaterial(mat.name)) continue;
+                    string prop = mat.HasProperty(property) ? property :
+                        mat.HasProperty("_BaseColor") ? "_BaseColor" :
+                        mat.HasProperty("_Color") ? "_Color" : null;
+                    if (prop == null) continue;
+                    renderer.GetPropertyBlock(block, i);
+                    block.SetColor(prop, color);
+                    renderer.SetPropertyBlock(block, i);
+                }
             }
+        }
+
+        private static bool IsPaintMaterial(string name)
+        {
+            if (string.IsNullOrEmpty(name)) return false;
+            string n = name.ToLowerInvariant();
+            return n.Contains("body") || n.Contains("paint");
         }
 
         public void Save()

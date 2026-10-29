@@ -333,8 +333,10 @@ namespace CarShowroom
             return true;
         }
 
-        private bool IsAR() => (mode != null && !mode.SeatNavigationAllowed) ||
-            SceneManager.GetActiveScene().name.IndexOf("AR", StringComparison.OrdinalIgnoreCase) >= 0;
+        private bool IsAR() => mode != null ? !mode.SeatNavigationAllowed :
+            (SceneManager.GetActiveScene().name.StartsWith("AR", StringComparison.OrdinalIgnoreCase) ||
+             SceneManager.GetActiveScene().name.IndexOf("_AR", StringComparison.OrdinalIgnoreCase) >= 0 ||
+             SceneManager.GetActiveScene().name.IndexOf("AR_", StringComparison.OrdinalIgnoreCase) >= 0);
 
         private bool Finish(bool success)
         {

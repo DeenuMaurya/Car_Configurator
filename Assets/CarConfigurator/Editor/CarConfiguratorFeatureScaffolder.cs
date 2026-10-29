@@ -27,7 +27,9 @@ namespace CarShowroom.EditorTools
         private const string MaterialPath = GeneratedPath + "/Materials";
 
         [MenuItem("Tools/Car Configurator/Create Missing UI + Assignment Slots")]
-        public static void CreateAll()
+        public static void CreateAllMenuItem() => CreateAll(false);
+
+        public static void CreateAll(bool silent = false)
         {
             GameObject system = GameObject.Find("CarConfiguratorSystem");
             if (!system)
@@ -46,7 +48,7 @@ namespace CarShowroom.EditorTools
             CarShowcaseServices showcase = GetOrAdd<CarShowcaseServices>(system);
             ShowroomPartPicker partPicker = GetOrAdd<ShowroomPartPicker>(system);
             ExperienceModeManager sceneMode = UnityEngine.Object.FindFirstObjectByType<ExperienceModeManager>();
-            bool isAR = SceneManager.GetActiveScene().name.IndexOf("AR", StringComparison.OrdinalIgnoreCase) >= 0;
+            bool isAR = SceneManager.GetActiveScene().name.StartsWith("AR", StringComparison.OrdinalIgnoreCase) || SceneManager.GetActiveScene().name.IndexOf("_AR", StringComparison.OrdinalIgnoreCase) >= 0;
             if (!sceneMode)
             {
                 sceneMode = GetOrAdd<ExperienceModeManager>(system);
@@ -91,17 +93,19 @@ namespace CarShowroom.EditorTools
             Selection.activeGameObject = system;
             EditorSceneManager.MarkSceneDirty(system.scene);
             Debug.Log("[Car Configurator] Created assignment slots + separate FeaturePanel. Assign real model parts, renderers, lights, animators and audio in the Inspector.", system);
-            EditorUtility.DisplayDialog("Car Configurator", "Feature UI and empty assignment slots created. Open the FEATURES tab in Play Mode. Assign car meshes/materials and controller references in Inspector. Existing UI was preserved.", "OK");
+            if (!silent) EditorUtility.DisplayDialog("Car Configurator", "Feature UI and empty assignment slots created. Open the FEATURES tab in Play Mode. Assign car meshes/materials and controller references in Inspector. Existing UI was preserved.", "OK");
         }
 
         [MenuItem("Tools/Car Configurator/Validate Feature Assignments")]
-        public static void ValidateAssignments()
+        public static void ValidateAssignmentsMenuItem() => ValidateAssignments(false);
+
+        public static List<string> ValidateAssignments(bool silent = false)
         {
             CarConfiguratorManager manager = UnityEngine.Object.FindFirstObjectByType<CarConfiguratorManager>();
             if (!manager)
             {
-                EditorUtility.DisplayDialog("Car Configurator", "No CarConfiguratorManager found. Create feature slots first.", "OK");
-                return;
+                if (!silent) EditorUtility.DisplayDialog("Car Configurator", "No CarConfiguratorManager found. Create feature slots first.", "OK");
+                return new List<string> { "No CarConfiguratorManager found" };
             }
             var missing = new List<string>();
             SerializedObject config = new SerializedObject(manager);
@@ -142,7 +146,8 @@ namespace CarShowroom.EditorTools
             string message = missing.Count == 0 ? "All checked references are assigned. Verify visual behavior in Play Mode." :
                 missing.Count + " references still need assignment. See Console for full list.";
             if (missing.Count > 0) Debug.LogWarning("[Car Configurator] Missing assignments:\n- " + string.Join("\n- ", missing), manager);
-            EditorUtility.DisplayDialog("Car Configurator Validator", message, "OK");
+            if (!silent) EditorUtility.DisplayDialog("Car Configurator Validator", message, "OK");
+            return missing;
         }
 
         private static void CheckArray(SerializedObject obj, string field, List<string> missing)

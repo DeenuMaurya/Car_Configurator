@@ -10,6 +10,7 @@ namespace CarShowroom
         [SerializeField] private GameObject[] leftIndicators;
         [SerializeField] private GameObject[] rightIndicators;
         [SerializeField] private GameObject[] brakeEmissiveMeshes;
+        [SerializeField] private GameObject[] headlightMeshes;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioClip horn;
         [SerializeField] private AudioClip lockSound;
@@ -27,7 +28,7 @@ namespace CarShowroom
         public bool IsLeftIndicatorOn => left;
         public bool IsRightIndicatorOn => right;
 
-        public void SetLowBeams(bool on) { AreLowBeamsOn = on; SetLights(lowBeams, on); }
+        public void SetLowBeams(bool on) { AreLowBeamsOn = on; SetLights(lowBeams, on); SetObjects(headlightMeshes, on); }
         public void SetHighBeams(bool on) { AreHighBeamsOn = on; SetLights(highBeams, on); }
         public void SetFogLights(bool on) { AreFogLightsOn = on; SetLights(fogLights, on); }
         public void SetBrakeLights(bool on) { AreBrakeLightsOn = on; SetObjects(brakeEmissiveMeshes, on); }

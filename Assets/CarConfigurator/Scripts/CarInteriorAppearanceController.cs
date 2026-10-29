@@ -15,11 +15,12 @@ namespace CarShowroom
         [SerializeField] private CarConfiguratorManager configurator;
         [SerializeField] private Light[] cabinAmbientLights;
         [SerializeField] private Renderer[] separatelyModeledRearSeats;
-        private readonly MaterialPropertyBlock block = new MaterialPropertyBlock();
+        private MaterialPropertyBlock block;
         private readonly HashSet<string> warned = new HashSet<string>();
 
         private void Awake()
         {
+            if (block == null) block = new MaterialPropertyBlock();
             if (!configurator) configurator = GetComponent<CarConfiguratorManager>();
         }
 
@@ -42,7 +43,7 @@ namespace CarShowroom
             CarConfiguration state = configurator.Current;
             ApplyToNamedSlots("dashboard", state.dashboardColor, "dashboard", "deshboard");
             ApplyToNamedSlots("door-trim", state.doorTrimColor, "interior_door", "door-02");
-            ApplyToNamedSlots("seats", state.seatColor, "seat_color", "seat_color01");
+            ApplyToNamedSlots("seats", state.seatColor, "seat_color", "seat_color01", "seat", "fabric", "leather", "upholstery");
             if (separatelyModeledRearSeats != null && separatelyModeledRearSeats.Length > 0)
             {
                 foreach (Renderer renderer in separatelyModeledRearSeats)
